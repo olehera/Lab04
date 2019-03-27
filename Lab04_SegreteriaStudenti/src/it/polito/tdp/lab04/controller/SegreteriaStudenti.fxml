@@ -92,7 +92,7 @@
                   </Button>
                </children>
             </HBox>
-            <TextArea fx:id="txtResult" prefHeight="200.0" prefWidth="200.0">
+            <TextArea fx:id="txtResult" editable="false" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>

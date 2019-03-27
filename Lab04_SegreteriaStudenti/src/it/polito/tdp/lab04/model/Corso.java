@@ -13,6 +13,10 @@ public class Corso {
 		this.nome = nome;
 		this.pd = pd;
 	}
+	
+	public String toString() {
+		return codins+" "+crediti+" "+nome+" "+pd+"\n";
+	}
 
 	public String getCodins() {
 		return codins;

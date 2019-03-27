@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.lab04.model.Model;
+import it.polito.tdp.lab04.model.Studente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -53,23 +54,53 @@ public class SegreteriaStudentiController {
     
     public void setModel(Model m) {
     	this.m = m;
+    	cbxCorso.getItems().addAll(m.getElencoCorsi());
     }
 
     @FXML
     void doCercaCorsi(ActionEvent event) {
+    	txtResult.clear();
+    	Studente s = null;
+    	try {
+    	s = m.getS(Integer.parseInt(txtMatricola.getText()));
+    	} catch(NullPointerException e) {
+    		txtResult.appendText("Matricola inserita in modo errato!\n");
+    	}
+    	
+    	if (s != null) {
+    		txtResult.setText(m.getStudenteCorsi(s.getMatricola()));
+    	}
+    	else 
+    		txtResult.appendText("Studente non trovato!\n");
 
     }
 
     @FXML
     void doCercaIscrittiCorso(ActionEvent event) {
+    	String s = cbxCorso.getValue();
 
+    	if (s.compareTo(" ")==0)
+    		txtResult.appendText("Selezionare un corso dal menù a tendina\n");
+    	else
+    		txtResult.appendText(m.getIscrittiCorso(s));
     }
 
     @FXML
     void doCercaMatricola(ActionEvent event) {
+    	txtResult.clear();
+    	Studente s = null;
+    	try {
+    	s = m.getS(Integer.parseInt(txtMatricola.getText()));
+    	} catch(NullPointerException e) {
+    		txtResult.appendText("Matricola inserita in modo errato!\n");
+    	}
     	
-    	
-
+    	if (s != null) {
+    		txtNome.setText(s.getNome());
+    		txtCognome.setText(s.getCognome());
+    	}
+    	else 
+    		txtResult.appendText("Studente non trovato!\n");
     }
 
     @FXML
@@ -80,7 +111,10 @@ public class SegreteriaStudentiController {
     @FXML
     void doReset(ActionEvent event) {
     	cbxCorso.setValue(" ");
-
+    	txtResult.clear();
+    	txtNome.clear();
+    	txtCognome.clear();
+    	txtMatricola.clear();
     }
 
     @FXML
@@ -95,7 +129,6 @@ public class SegreteriaStudentiController {
         assert btnIscrivi != null : "fx:id=\"btnIscrivi\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
-        cbxCorso.getItems().addAll(" "," ");
 		cbxCorso.setValue(" ");
     }
 }

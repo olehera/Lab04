@@ -14,6 +14,10 @@ public class Studente {
 		this.cds = cds;
 	}
 
+	public String toString() {
+		return matricola+" "+nome+" "+cognome+" "+cds+"\n";
+	}
+	
 	public int getMatricola() {
 		return matricola;
 	}
