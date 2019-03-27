@@ -15,7 +15,7 @@ public class Studente {
 	}
 
 	public String toString() {
-		return matricola+" "+nome+" "+cognome+" "+cds+"\n";
+		return matricola+"   "+nome+"   "+cognome+"   "+cds+"\n";
 	}
 	
 	public int getMatricola() {

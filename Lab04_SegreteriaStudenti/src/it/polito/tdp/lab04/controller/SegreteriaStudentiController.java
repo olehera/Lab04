@@ -25,6 +25,9 @@ public class SegreteriaStudentiController {
 
     @FXML
     private Button btnCercaIscrittiCorso;
+    
+    @FXML
+    private Button btnVerifica;
 
     @FXML
     private TextField txtMatricola;
@@ -62,14 +65,13 @@ public class SegreteriaStudentiController {
     	txtResult.clear();
     	Studente s = null;
     	try {
-    	s = m.getS(Integer.parseInt(txtMatricola.getText()));
+    		s = m.getS(Integer.parseInt(txtMatricola.getText()));
     	} catch(NullPointerException e) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
     	}
     	
-    	if (s != null) {
+    	if (s != null)
     		txtResult.setText(m.getStudenteCorsi(s.getMatricola()));
-    	}
     	else 
     		txtResult.appendText("Studente non trovato!\n");
 
@@ -77,9 +79,10 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doCercaIscrittiCorso(ActionEvent event) {
+    	txtResult.clear();
     	String s = cbxCorso.getValue();
 
-    	if (s.compareTo(" ")==0)
+    	if (s.compareTo("")==0)
     		txtResult.appendText("Selezionare un corso dal menù a tendina\n");
     	else
     		txtResult.appendText(m.getIscrittiCorso(s));
@@ -90,7 +93,7 @@ public class SegreteriaStudentiController {
     	txtResult.clear();
     	Studente s = null;
     	try {
-    	s = m.getS(Integer.parseInt(txtMatricola.getText()));
+    		s = m.getS(Integer.parseInt(txtMatricola.getText()));
     	} catch(NullPointerException e) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
     	}
@@ -102,15 +105,69 @@ public class SegreteriaStudentiController {
     	else 
     		txtResult.appendText("Studente non trovato!\n");
     }
+    
+    @FXML
+    void doVerifica(ActionEvent event) {
+    	txtResult.clear();
+    	String nomeCorso = cbxCorso.getValue();
+    	int matricola = 0;
+    	
+    	if (nomeCorso.compareTo("")==0) {
+    		txtResult.appendText("Selezionare un corso dal menù a tendina\n"); 
+    		return; 
+    	}
+    	
+    	try {
+            matricola = Integer.parseInt(txtMatricola.getText());
+    	} catch(NullPointerException e) {
+    		txtResult.appendText("Matricola inserita in modo errato!\n");
+    	}
+    	
+    	if (m.getS(matricola)==null) {
+    		txtResult.appendText("Studente non trovato!\n"); 
+    		return;
+    	}
+    	
+    	if (m.isIscritto(nomeCorso, matricola)) 
+    		txtResult.appendText("Lo studente "+matricola+" è iscrizzo al corso "+nomeCorso+"\n");
+    	else 
+    		txtResult.appendText("Lo studente "+matricola+" non è iscrizzo al corso "+nomeCorso+"\n");
+    }
 
     @FXML
     void doIscrivi(ActionEvent event) {
-
+    	txtResult.clear();
+    	String nomeCorso = cbxCorso.getValue();
+    	int matricola = 0;
+    	
+    	if (nomeCorso.compareTo("")==0) {
+    		txtResult.appendText("Selezionare un corso dal menù a tendina\n"); 
+    		return; 
+    	}
+    	
+    	try {
+            matricola = Integer.parseInt(txtMatricola.getText());
+    	} catch(NullPointerException e) {
+    		txtResult.appendText("Matricola inserita in modo errato!\n");
+    	}
+    	
+    	if (m.getS(matricola)==null) {
+    		txtResult.appendText("Studente non trovato!\n"); 
+    		return;
+    	}
+    	
+    	if (m.isIscritto(nomeCorso, matricola)) {
+    		txtResult.appendText("Lo studente "+matricola+" è già iscrizzo al corso "+nomeCorso+"\n");
+    		return; 
+    	} else if (m.iscrivi(nomeCorso, matricola))
+    		txtResult.appendText("Lo studente "+matricola+" è stato iscrizzo al corso "+nomeCorso+"\n");
+    	else
+    		txtResult.appendText("Lo studente "+matricola+" non è stato iscrizzo al corso "+nomeCorso+"\n");
     }
 
     @FXML
     void doReset(ActionEvent event) {
-    	cbxCorso.setValue(" ");
+    	cbxCorso.setValue("");
     	txtResult.clear();
     	txtNome.clear();
     	txtCognome.clear();
@@ -121,6 +178,7 @@ public class SegreteriaStudentiController {
     void initialize() {
         assert cbxCorso != null : "fx:id=\"cbxCorso\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnCercaIscrittiCorso != null : "fx:id=\"btnCercaIscrittiCorso\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
+        assert btnVerifica != null : "fx:id=\"btnVerifica\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert txtMatricola != null : "fx:id=\"txtMatricola\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnMatricola != null : "fx:id=\"btnMatricola\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert txtNome != null : "fx:id=\"txtNome\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
@@ -129,7 +187,7 @@ public class SegreteriaStudentiController {
         assert btnIscrivi != null : "fx:id=\"btnIscrivi\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
-		cbxCorso.setValue(" ");
+		cbxCorso.setValue("");
     }
 }
 

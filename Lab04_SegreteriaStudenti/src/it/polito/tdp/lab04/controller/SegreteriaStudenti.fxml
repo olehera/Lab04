@@ -31,7 +31,7 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </Label>
-                  <ComboBox fx:id="cbxCorso" prefHeight="25.0" prefWidth="236.0">
+                  <ComboBox fx:id="cbxCorso" prefHeight="25.0" prefWidth="328.0">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -41,19 +41,24 @@
             <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="521.0">
                <children>
                   <Button fx:id="btnCercaIscrittiCorso" mnemonicParsing="false" onAction="#doCercaIscrittiCorso" prefHeight="25.0" prefWidth="143.0" text="Cerca Iscritti Corso" />
+                  <Button fx:id="btnVerifica" mnemonicParsing="false" onAction="#doVerifica" prefHeight="25.0" prefWidth="146.0" text="Verifica Iscrizione">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
                <VBox.margin>
                   <Insets left="40.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="75.0" prefWidth="561.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="561.0">
                <children>
                   <Label text="Studente: ">
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets left="25.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtMatricola" prefHeight="25.0" prefWidth="120.0">
+                  <TextField fx:id="txtMatricola" prefHeight="25.0" prefWidth="93.0">
                      <HBox.margin>
                         <Insets left="5.0" top="10.0" />
                      </HBox.margin>
@@ -66,12 +71,12 @@
                         <Insets left="10.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <TextField fx:id="txtNome" editable="false" prefHeight="25.0" prefWidth="124.0">
+                  <TextField fx:id="txtNome" editable="false" prefHeight="25.0" prefWidth="145.0">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <TextField fx:id="txtCognome" editable="false" prefHeight="25.0" prefWidth="126.0">
+                  <TextField fx:id="txtCognome" editable="false" prefHeight="25.0" prefWidth="145.0">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>

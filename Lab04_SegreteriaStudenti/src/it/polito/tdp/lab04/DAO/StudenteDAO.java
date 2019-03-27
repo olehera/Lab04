@@ -18,31 +18,27 @@ public class StudenteDAO {
 	public Studente getStudente(int mat) {
 		
 		final String sql = "SELECT * FROM studente WHERE matricola = ?";
-		
+		Studente s = null;
 		try {
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setInt(1, mat);
 			ResultSet rs = st.executeQuery();
 
-			while (rs.next()) {
-
+			if (rs.next()) {
 				int matricola = rs.getInt("matricola");
 				String cognome = rs.getString("cognome");
 				String nome = rs.getString("nome");
 				String cds = rs.getString("cds");
 				
-				conn.close();
-
-				return new Studente(matricola, cognome, nome, cds);
+				s = new Studente(matricola, cognome, nome, cds);
 			}
-			
-			return null;
 
 		} catch (SQLException e) {
 			// e.printStackTrace();
-			throw new RuntimeException("Errore Db");
+			throw new RuntimeException(e);
 		}
+		return s;
 	}
 
 	/*
@@ -61,25 +57,36 @@ public class StudenteDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-				
 				String codins = rs.getString("codins");
 
 				lista.add(cors.getCorsoCod(codins));
-				
-				conn.close();
-
-				return lista;
 			}
-			
-			return null;
 
 		} catch (SQLException e) {
 			// e.printStackTrace();
-			throw new RuntimeException("Errore Db");
+			throw new RuntimeException(e);
 		}
-		
+		return lista;
 	}
-	
-	
+
+	public boolean getIscrizione(String codins, int matricola) {
+        final String sql = "SELECT * FROM iscrizione WHERE matricola = ? AND codins = ?";
+		
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, matricola);
+			st.setString(2, codins);
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) 
+				return true;
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		return false;
+	}
 
 }

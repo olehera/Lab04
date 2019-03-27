@@ -15,7 +15,7 @@ public class Corso {
 	}
 	
 	public String toString() {
-		return codins+" "+crediti+" "+nome+" "+pd+"\n";
+		return codins+"   "+crediti+"   "+nome+"   "+pd+"\n";
 	}
 
 	public String getCodins() {

@@ -18,7 +18,6 @@ public class CorsoDAO {
 	public List<Corso> getTuttiICorsi() {
 
 		final String sql = "SELECT * FROM corso";
-
 		List<Corso> corsi = new LinkedList<Corso>();
 
 		try {
@@ -27,7 +26,6 @@ public class CorsoDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-
 				String codins = rs.getString("codins");
 				int numeroCrediti = rs.getInt("crediti");
 				String nome = rs.getString("nome");
@@ -35,15 +33,13 @@ public class CorsoDAO {
 
 				corsi.add(new Corso(codins, numeroCrediti, nome, periodoDidattico));
 			}
-			
-			conn.close();
-
-			return corsi;
 
 		} catch (SQLException e) {
 			// e.printStackTrace();
-			throw new RuntimeException("Errore Db");
+			throw new RuntimeException(e);
 		}
+		
+		return corsi;
 	}
 
 	/*
@@ -52,6 +48,7 @@ public class CorsoDAO {
 	public Corso getCorso(String nomeCorso) {
 		
 		final String sql = "SELECT * FROM corso WHERE nome = ?";
+		Corso c = null;
 
 		try {
 			Connection conn = ConnectDB.getConnection();
@@ -59,24 +56,20 @@ public class CorsoDAO {
 			st.setString(1, nomeCorso);
 			ResultSet rs = st.executeQuery();
 
-			while (rs.next()) {
-
+			if (rs.next()) {
 				String codins = rs.getString("codins");
-				int numeroCrediti = rs.getInt("crediti");
-				String nome = rs.getString("nome");
-				int periodoDidattico = rs.getInt("pd");
-				
-				conn.close();
-
-				return new Corso(codins, numeroCrediti, nome, periodoDidattico);
-			}
+			    int numeroCrediti = rs.getInt("crediti");
+			    String nome = rs.getString("nome");
+			    int periodoDidattico = rs.getInt("pd");
 			
-			return null;
+			    c = new Corso(codins, numeroCrediti, nome, periodoDidattico); 
+			}
 
 		} catch (SQLException e) {
 			// e.printStackTrace();
-			throw new RuntimeException("Errore Db");
+			throw new RuntimeException(e);
 		}
+		return c;
 	}
 	
 	/*
@@ -85,6 +78,7 @@ public class CorsoDAO {
 	public Corso getCorsoCod(String cod) {
 		
 		final String sql = "SELECT * FROM corso WHERE codins = ?";
+		Corso c = null;
 
 		try {
 			Connection conn = ConnectDB.getConnection();
@@ -92,24 +86,20 @@ public class CorsoDAO {
 			st.setString(1, cod);
 			ResultSet rs = st.executeQuery();
 
-			while (rs.next()) {
-
+			if (rs.next()) {
 				String codins = rs.getString("codins");
 				int numeroCrediti = rs.getInt("crediti");
 				String nome = rs.getString("nome");
 				int periodoDidattico = rs.getInt("pd");
-				
-				conn.close();
 
-				return new Corso(codins, numeroCrediti, nome, periodoDidattico);
+				c = new Corso(codins, numeroCrediti, nome, periodoDidattico);
 			}
 			
-			return null;
-
 		} catch (SQLException e) {
 			// e.printStackTrace();
-			throw new RuntimeException("Errore Db");
+			throw new RuntimeException(e);
 		}
+		return c;
 	}
 
 	/*
@@ -128,30 +118,38 @@ public class CorsoDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-				
 				int matricola = rs.getInt("matricola");
 
 				lista.add(stud.getStudente(matricola));
-				
-				conn.close();
-
-				return lista;
 			}
 			
-			return null;
-
 		} catch (SQLException e) {
 			// e.printStackTrace();
-			throw new RuntimeException("Errore Db");
+			throw new RuntimeException(e);
 		}
+		return lista;
 	}
 
 	/*
 	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso.
 	 */
-	public boolean inscriviStudenteACorso(Studente studente, Corso corso) {
+	public boolean inscriviStudenteACorso(String codins, int matricola) {
+        final String sql = "INSERT INTO iscrizione (matricola, codins) VALUES (?,'?')";
 		
-		// ritorna true se l'iscrizione e' avvenuta con successo
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, matricola);
+			st.setString(2, codins);
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) 
+				return true;
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 		return false;
 	}
 }
