@@ -42,12 +42,11 @@ public class StudenteDAO {
 	}
 
 	/*
-	 * Ottengo tutti i corsi seguiti da uno studente
+	 * Data la matricola di uno studente, ottengo una lista di corsi seguiti dallo studente
 	 */
 	public List<Corso> getCorsiIscrittoStudente(int matricola) {
 		CorsoDAO cors = new CorsoDAO();
         final String sql = "SELECT codins FROM iscrizione WHERE matricola = ?";
-		
 		List<Corso> lista = new LinkedList<Corso>();
 		
 		try {
@@ -68,7 +67,10 @@ public class StudenteDAO {
 		}
 		return lista;
 	}
-
+	
+	/*
+	 * Data una matricola ed il codice insegnamento, verifica se lo studente è iscritto a quel corso
+	 */
 	public boolean getIscrizione(String codins, int matricola) {
         final String sql = "SELECT * FROM iscrizione WHERE matricola = ? AND codins = ?";
 		

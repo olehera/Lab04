@@ -66,8 +66,9 @@ public class SegreteriaStudentiController {
     	Studente s = null;
     	try {
     		s = m.getS(Integer.parseInt(txtMatricola.getText()));
-    	} catch(NullPointerException e) {
+    	} catch(NumberFormatException nfe) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
+    		return;
     	}
     	
     	if (s != null)
@@ -94,8 +95,9 @@ public class SegreteriaStudentiController {
     	Studente s = null;
     	try {
     		s = m.getS(Integer.parseInt(txtMatricola.getText()));
-    	} catch(NullPointerException e) {
+    	} catch(NumberFormatException nfe) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
+    		return;
     	}
     	
     	if (s != null) {
@@ -119,8 +121,9 @@ public class SegreteriaStudentiController {
     	
     	try {
             matricola = Integer.parseInt(txtMatricola.getText());
-    	} catch(NullPointerException e) {
+    	} catch(NumberFormatException nfe) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
+    		return;
     	}
     	
     	if (m.getS(matricola)==null) {
@@ -129,9 +132,9 @@ public class SegreteriaStudentiController {
     	}
     	
     	if (m.isIscritto(nomeCorso, matricola)) 
-    		txtResult.appendText("Lo studente "+matricola+" è iscrizzo al corso "+nomeCorso+"\n");
+    		txtResult.appendText("Lo studente "+matricola+" è iscritto al corso "+nomeCorso+"\n");
     	else 
-    		txtResult.appendText("Lo studente "+matricola+" non è iscrizzo al corso "+nomeCorso+"\n");
+    		txtResult.appendText("Lo studente "+matricola+" non è iscritto al corso "+nomeCorso+"\n");
     }
 
     @FXML
@@ -147,8 +150,9 @@ public class SegreteriaStudentiController {
     	
     	try {
             matricola = Integer.parseInt(txtMatricola.getText());
-    	} catch(NullPointerException e) {
+    	} catch(NumberFormatException nfe) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
+    		return;
     	}
     	
     	if (m.getS(matricola)==null) {
@@ -157,12 +161,12 @@ public class SegreteriaStudentiController {
     	}
     	
     	if (m.isIscritto(nomeCorso, matricola)) {
-    		txtResult.appendText("Lo studente "+matricola+" è già iscrizzo al corso "+nomeCorso+"\n");
+    		txtResult.appendText("Lo studente "+matricola+" è già iscritto al corso "+nomeCorso+"\n");
     		return; 
     	} else if (m.iscrivi(nomeCorso, matricola))
-    		txtResult.appendText("Lo studente "+matricola+" è stato iscrizzo al corso "+nomeCorso+"\n");
+    		txtResult.appendText("Lo studente "+matricola+" è stato iscritto al corso "+nomeCorso+"\n");
     	else
-    		txtResult.appendText("Lo studente "+matricola+" non è stato iscrizzo al corso "+nomeCorso+"\n");
+    		txtResult.appendText("Lo studente "+matricola+" non è stato iscritto al corso "+nomeCorso+"\n");
     }
 
     @FXML

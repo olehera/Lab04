@@ -13,7 +13,7 @@ import it.polito.tdp.lab04.model.Studente;
 public class CorsoDAO {
 	
 	/*
-	 * Ottengo tutti i corsi salvati nel Db
+	 * Ottengo una lista di tutti i corsi salvati nel Db
 	 */
 	public List<Corso> getTuttiICorsi() {
 
@@ -73,7 +73,7 @@ public class CorsoDAO {
 	}
 	
 	/*
-	 * Dato il codice di un corso, ottengo il corso
+	 * Dato il codice insegnamento di un corso, ottengo il corso
 	 */
 	public Corso getCorsoCod(String cod) {
 		
@@ -103,7 +103,7 @@ public class CorsoDAO {
 	}
 
 	/*
-	 * Ottengo tutti gli studenti iscritti al Corso
+	 * Ottengo una lista di tutti gli studenti iscritti al Corso passato come parametro
 	 */
 	public List<Studente> getStudentiIscrittiAlCorso(Corso corso) {
 		StudenteDAO stud = new StudenteDAO();
@@ -131,25 +131,23 @@ public class CorsoDAO {
 	}
 
 	/*
-	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso.
+	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso
 	 */
 	public boolean inscriviStudenteACorso(String codins, int matricola) {
-        final String sql = "INSERT INTO iscrizione (matricola, codins) VALUES (?,'?')";
+		StudenteDAO stud = new StudenteDAO();
+        final String sql = "INSERT INTO iscrizione (matricola, codins) VALUES (?,?)";
 		
 		try {
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setInt(1, matricola);
 			st.setString(2, codins);
-			ResultSet rs = st.executeQuery();
-
-			if (rs.next()) 
-				return true;
-
+			st.execute();          // update
+			
 		} catch (SQLException e) {
 			// e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		return false;
+		return stud.getIscrizione(codins, matricola);
 	}
 }

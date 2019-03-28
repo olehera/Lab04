@@ -4,11 +4,6 @@ public class TestModel {
 
 	public static void main(String[] args) {
 		
-		
-		
-		/*
-		 * 	Write here your test model
-		 */
 
 	}
 
