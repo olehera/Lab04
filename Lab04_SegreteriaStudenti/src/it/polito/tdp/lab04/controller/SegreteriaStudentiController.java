@@ -65,7 +65,7 @@ public class SegreteriaStudentiController {
     	txtResult.clear();
     	Studente s = null;
     	try {
-    		s = m.getS(Integer.parseInt(txtMatricola.getText()));
+    		s = m.getS(Integer.parseInt(txtMatricola.getText().trim()));
     	} catch(NumberFormatException nfe) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
     		return;
@@ -94,7 +94,7 @@ public class SegreteriaStudentiController {
     	txtResult.clear();
     	Studente s = null;
     	try {
-    		s = m.getS(Integer.parseInt(txtMatricola.getText()));
+    		s = m.getS(Integer.parseInt(txtMatricola.getText().trim()));
     	} catch(NumberFormatException nfe) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
     		return;
@@ -120,7 +120,7 @@ public class SegreteriaStudentiController {
     	}
     	
     	try {
-            matricola = Integer.parseInt(txtMatricola.getText());
+            matricola = Integer.parseInt(txtMatricola.getText().trim());
     	} catch(NumberFormatException nfe) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
     		return;
@@ -149,7 +149,7 @@ public class SegreteriaStudentiController {
     	}
     	
     	try {
-            matricola = Integer.parseInt(txtMatricola.getText());
+            matricola = Integer.parseInt(txtMatricola.getText().trim());
     	} catch(NumberFormatException nfe) {
     		txtResult.appendText("Matricola inserita in modo errato!\n");
     		return;
