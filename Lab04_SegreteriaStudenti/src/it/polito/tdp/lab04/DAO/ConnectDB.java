@@ -5,23 +5,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectDB {
-
-	static private final String jdbcUrl = "jdbc:mysql://localhost/iscritticorsi?serverTimezone=UTC&user=root&password=sascia";
-	static private Connection connection = null;
+	
+	private static final String jdbcURL = "jdbc:mysql://localhost/iscritticorsi?serverTimezone=UTC&user=root&password=sascia";
 
 	public static Connection getConnection() {
-
+		
 		try {
-			if (connection == null || connection.isClosed()) {
-				connection = DriverManager.getConnection(jdbcUrl);
+			Connection conn = DriverManager.getConnection(jdbcURL); 
+			
+			return conn;
+			
+			} catch(SQLException ex) {
+				ex.printStackTrace();
 			}
-			return connection;
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			throw new RuntimeException("Cannot get a connection " + jdbcUrl, e);
-		}
+		
+		return null;
 	}
 
 }
+
